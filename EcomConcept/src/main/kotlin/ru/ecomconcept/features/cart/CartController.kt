@@ -3,15 +3,14 @@ package ru.ecomconcept.features.cart
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import ru.ecomconcept.database.cart.CartTable
-import ru.ecomconcept.database.cart.mapToCartDTO
-import ru.ecomconcept.database.cart.mapToCartResponse
+import ru.ecomconcept.database.cart.*
 import ru.ecomconcept.database.hotsales.mapToHotSalesDTO
 import ru.ecomconcept.database.hotsales.mapToHotSalesResponse
 import ru.ecomconcept.database.phones.PhonesTable
 import ru.ecomconcept.database.phones.mapToPhoneDTO
 import ru.ecomconcept.database.phones.mapToPhoneResponse
 import ru.ecomconcept.features.phones.models.CartRequest
+import ru.ecomconcept.features.phones.models.CartResponse
 import ru.ecomconcept.features.phones.models.HotSalesRequest
 
 class CartController(private val call: ApplicationCall) {
@@ -33,5 +32,12 @@ class CartController(private val call: ApplicationCall) {
 
     suspend fun fetchCartByIdUser(id: String) {
         call.respond(CartTable.fetchCartByIdUser(id))
+    }
+
+    suspend fun updateCart() {
+        val request = call.receive<CartRequest>()
+        val cart = request.mapToCartDTOUpdate()
+        CartTable.updateCart(cart)
+        fetchCart()
     }
 }

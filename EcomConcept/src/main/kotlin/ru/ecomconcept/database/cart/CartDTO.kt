@@ -24,6 +24,14 @@ fun CartRequest.mapToCartDTO(): CartDTO =
         count = count
     )
 
+fun CartRequest.mapToCartDTOUpdate(): CartDTO =
+    CartDTO(
+        id = id,
+        idUser = idUser,
+        idPhone = idPhone,
+        count = count
+    )
+
 fun CartDTO.mapToCartResponse(): CartResponse =
     CartResponse(
         id = id,

@@ -63,4 +63,14 @@ object CartTable: Table("cart") {
             emptyList()
         }
     }
+    fun updateCart(cartDTO: CartDTO) {
+        transaction {
+            CartTable.update({CartTable.id eq cartDTO.id}) {
+                it[id] = cartDTO.id
+                it[idUser] = cartDTO.idUser
+                it[idPhone] = cartDTO.idPhone
+                it[count] = cartDTO.count
+            }
+        }
+    }
 }

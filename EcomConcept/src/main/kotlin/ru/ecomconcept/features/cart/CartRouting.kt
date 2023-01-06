@@ -25,5 +25,9 @@ fun Application.configureCartRouting() {
             val id = call.parameters["id"] ?: return@delete call.respond(HttpStatusCode.BadRequest)
             CartController(call).deleteCart(id)
         }
+
+        patch("cart/update") {
+            CartController(call).updateCart()
+        }
     }
 }
